@@ -1,40 +1,4 @@
-// import { useState, useEffect } from "react";
-
-// export default function GravitySimulation() {
-//   const [ballY, setBallY] = useState(300); // Initial position on surface
-//   const [velocity, setVelocity] = useState(0);
-//   const gravity = 0.5;
-//   const jumpStrength = -15;
-//   const groundY = 300;
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setVelocity((prev) => prev + gravity);
-//       setBallY((prev) => Math.min(prev + velocity, groundY));
-//     }, 20);
-//     return () => clearInterval(interval);
-//   }, [velocity]);
-
-//   const handleJump = () => {
-//     if (ballY >= groundY) {
-//       setVelocity(jumpStrength);
-//     }
-//   };
-
-//   return (
-//     <div className="relative w-screen h-screen bg-gray-100 flex flex-col items-center justify-center">
-//       <div className="relative w-64 h-1 bg-red-800 " style={{top:66}} />
-//       <div className="absolute w-10 h-10 bg-red-500 rounded-full" style={{ top: ballY }} />
-//       <button onClick={handleJump} className="absolute bottom-10 px-4 py-2 bg-blue-500 text-white rounded">
-//         Jump
-//       </button>
-//     </div>
-//   );
-// }
-
-
-
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const GravitySimulation = () => {
   // Physics constants
