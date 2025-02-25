@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 const GravitySimulation = () => {
   // Physics constants
   const GRAVITY = 0.5;
-  const BOUNCE_FACTOR = 0.7; // Energy loss on bounce (0-1)
+  const BOUNCE_FACTOR = 0.9; // Energy loss on bounce (0-1)
   const FRICTION = 0.99; // Horizontal friction
-  const FLOOR_Y = 400; // Y position of the floor
+  const FLOOR_Y = 358 // Y position of the floor
   const BALL_RADIUS = 20;
   const JUMP_VELOCITY = -15; // Negative because y increases downward
 
@@ -24,6 +24,7 @@ const GravitySimulation = () => {
     
     const updatePhysics = () => {
       setPosition(prevPos => {
+        
         setVelocity(prevVel => {
           let newVelX = prevVel.x * FRICTION;
           let newVelY = prevVel.y + GRAVITY; // Apply gravity
@@ -83,15 +84,9 @@ const GravitySimulation = () => {
         if (position.y >= FLOOR_Y - BALL_RADIUS - 1) { // Only jump if on or very close to floor
           setVelocity(prev => ({ ...prev, y: JUMP_VELOCITY }));
           setIsMoving(true);
-          setJumpsCount(prev => prev + 1);
         }
         
-        // Add some random horizontal movement for more interesting bounces
-        // if (!isMoving) {
-        //   const randomX = (Math.random() - 0.5) * 6;
-        //   setVelocity(prev => ({ x: randomX, y: JUMP_VELOCITY }));
-        //   setIsMoving(true);
-        // }
+       
       }
     };
     
@@ -99,15 +94,7 @@ const GravitySimulation = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [position.y, isMoving]);
   
-  // Handle button press (alternative to spacebar)
-  const handleJumpClick = () => {
-    if (position.y >= FLOOR_Y - BALL_RADIUS - 1) {
-      const randomX = (Math.random() - 0.5) * 6;
-      setVelocity({ x: randomX, y: JUMP_VELOCITY });
-      setIsMoving(true);
-      setJumpsCount(prev => prev + 1);
-    }
-  };
+
   
   return (
     <div className="flex flex-col items-center w-full max-w-lg mx-auto p-4">
@@ -128,7 +115,7 @@ const GravitySimulation = () => {
         
         {/* Floor */}
         <div 
-          className="absolute bottom-0 w-full h-8 bg-gray-800"
+          className="absolute bottom-0 w-full h-8 bg-gray-100"
           style={{ top: FLOOR_Y }}
         />
         </div>
@@ -141,11 +128,6 @@ const GravitySimulation = () => {
           Jump!
         </button>
         
-        {/* <div className="text-lg text-gray-700">
-          <p>Press <span className="font-mono bg-gray-200 px-2 py-1 rounded">Spacebar</span> to make the ball jump</p>
-          <p className="mt-2">Jumps: {jumpsCount}</p>
-          <p>Status: {isMoving ? 'Moving' : 'At rest'}</p>
-        </div> */}
       </div>
     </div>
   );
@@ -154,6 +136,22 @@ const GravitySimulation = () => {
 export default GravitySimulation;
 
 
+ // Add some random horizontal movement for more interesting bounces
+        // if (!isMoving) {
+        //   const randomX = (Math.random() - 0.5) * 6;
+        //   setVelocity(prev => ({ x: randomX, y: JUMP_VELOCITY }));
+        //   setIsMoving(true);
+        // }
+
+  // Handle button press (alternative to spacebar)
+  const handleJumpClick = () => {
+    if (position.y >= FLOOR_Y - BALL_RADIUS - 1) {
+      const randomX = (Math.random() - 0.5) * 6;
+      setVelocity({ x: randomX, y: JUMP_VELOCITY });
+      setIsMoving(true);
+      setJumpsCount(prev => prev + 1);
+    }
+  };
 
 
 
